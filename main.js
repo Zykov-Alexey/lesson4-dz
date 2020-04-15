@@ -64,3 +64,15 @@ console.log(getLocalDate(new Date(1999999123456), false, true) === '2033-05-18, 
 console.log(getLocalDate(new Date(1999999123456), true, true) === '2033-05-18, 06:18:43');
 
 console.log('====== Задача 3 =========');
+
+var getWeekDay = (d) => {
+  const date = new Date(d);
+  const days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+
+  return days[date.getDay()];
+};
+
+console.log(getWeekDay('2019-01-30')); 
+console.log(getWeekDay('2019-07-16')); 
+console.log(getWeekDay('2019-07-27')); 
+
