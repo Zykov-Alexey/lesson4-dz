@@ -76,3 +76,94 @@ console.log(getWeekDay('2019-01-30'));
 console.log(getWeekDay('2019-07-16')); 
 console.log(getWeekDay('2019-07-27')); 
 
+console.log('====== Задача 4 =========');
+
+var getLocalDay = (d) => {
+  const date = new Date(d);
+  var day = date.getDay();
+  if (day === 0) day = 7;
+  return day;
+};
+
+console.log(getLocalDay('2019-07-16'));
+console.log(getLocalDay('2019-07-25'));
+console.log(getLocalDay('2019-07-27'));
+
+console.log('====== Задача 5 =========');
+
+var getDateAgo = (d, days) => {
+  const date = new Date(d);
+  date.setDate(date.getDate() - days);
+  return date.toLocaleString().replace(/(\d.*),\s+(\d.*)/gu, '$1');
+};
+
+console.log(getDateAgo('2019-01-29', 1));
+console.log(getDateAgo('2019-01-29', 2));
+console.log(getDateAgo('2019-01-29', 365));
+
+console.log('====== Задача 6 =========');
+
+var Car = function (engine, model, name, year) {
+  this.engine = engine;
+  this.model = model;
+  this.name = name;
+  this.year = year;
+};
+
+Object.defineProperties(Car.prototype, {
+  used: {
+    get() {
+      const yearNow = new Date().getFullYear();
+
+      return yearNow - this.year > 1 ? 'used' : 'new';
+    },
+    set(value) {
+      const yearNow = new Date().getFullYear();
+
+      if (value === 'new' && this.year < yearNow) this.year = yearNow;
+    }
+  }
+});
+
+Car.prototype.info = function () {
+  return `${this.name} ${this.model}, ${this.engine}cc, year ${this.year}, ${this.used}`;
+};
+
+var car = new Car('2.5', 'a6', 'audi', '2010');
+var car2 = new Car('3.0', 'x5', 'bmw', '2019');
+
+console.log(car.info());
+console.log(car.info());
+car.used = 'used';
+console.log(car.info());
+console.log(car2.info());
+car.used = 'used';
+console.log(car2.info());
+
+console.log('====== Задача 7 =========');
+
+var testPerformance = (iterations, func) => {
+  var time = Date.now();
+  if (typeof func === 'function') for (var i = iterations; i--;) func();
+ 
+  return Date.now() - time;
+};
+
+function test1() {
+  let str = myLongStr;
+  while (str.indexOf('o') !== -1) str = str.replace('o', '');
+  while (str.indexOf('a') !== -1) str = str.replace('a', '');
+  while (str.indexOf('e') !== -1) str = str.replace('e', '');
+  while (str.indexOf('u') !== -1) str = str.replace('u', '');
+  while (str.indexOf('i') !== -1) str = str.replace('i', '');
+}
+
+function test2() {
+  const reg = new RegExp('[oaeui]', 'gui');
+
+  myLongStr.replace(reg, '');
+}
+
+console.log(testPerformance(100, test1));
+console.log(testPerformance(100, test2));
+console.log(testPerformance(100, 12345));
